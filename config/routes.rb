@@ -1,4 +1,6 @@
 SampleApp::Application.routes.draw do
+  get "users/new"
+
   #legacy lines
   #get "pages/home"
   #get "pages/contact"
@@ -6,6 +8,8 @@ SampleApp::Application.routes.draw do
   #get "pages/help"
   
   #Time for the new stuff:
+  
+  match '/signup', :to => 'users#new'
   
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
