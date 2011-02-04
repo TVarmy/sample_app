@@ -4,11 +4,6 @@ class UsersController < ApplicationController
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
   
-  def show
-    @user = User.find(params[:id])
-    @title = @user.name
-  end
-  
   def new
     @user = User.new
     @title = "Sign up"
@@ -49,6 +44,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @title = @user.name
+    @microposts = @user.microposts.paginate(:page => params[:page])
   end
   
   def destroy
@@ -58,10 +54,6 @@ class UsersController < ApplicationController
   end
   
   private
-  
-    def authenticate
-      deny_access unless signed_in?
-    end
     
     def correct_user
       @user = User.find(params[:id])
